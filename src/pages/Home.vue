@@ -9,7 +9,7 @@
         rows="8"
         v-model="mensagem"
       ></textarea>
-      <button>Compartilhar</button>
+      <button @click="createPost">Compartilhar</button>
     </div>
     <div class="postarea">
       <article>
@@ -66,8 +66,44 @@
 </template>
 
 <script>
+import firebase from "@/services/firebaseConnection";
+
 export default {
   name: "HomePage",
+  data() {
+    return {
+      mensagem: "",
+      user: {},
+    };
+  },
+  async created() {
+    const user = await localStorage.getItem("devpost");
+    this.user = JSON.parse(user);
+  },
+  methods: {
+    async createPost() {
+      if (this.mensagem === "") {
+        return;
+      }
+      await firebase
+        .firestore()
+        .collection("posts")
+        .add({
+          created: new Date(),
+          content: this.mensagem,
+          autor: this.user.nome,
+          userId: this.user.uid,
+          likes: 0,
+        })
+        .then(() => {
+          this.mensagem = "";
+          console.log("Post criado com sucesso!");
+        })
+        .catch(error => {
+          console.log("Error ao criar o post:" + error);
+        });
+    },
+  },
 };
 </script>
 
