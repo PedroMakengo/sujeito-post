@@ -3,9 +3,20 @@
     <div v-if="login" class="loginArea">
       <h1>Entrar</h1>
       <form @submit.prevent="handleLogin">
-        <input type="text" placeholder="email@gmail.com" />
-        <input type="password" placeholder="Sua senha..." id="" />
-        <button>Acessar</button>
+        <input
+          type="text"
+          placeholder="email@gmail.com"
+          v-model="users.email"
+        />
+        <input
+          type="password"
+          placeholder="Sua senha..."
+          v-model="users.password"
+          id=""
+        />
+        <button :disabled="loading" :class="{ isLoading: loading }">
+          {{ loading ? "Processando..." : "Acessar" }}
+        </button>
       </form>
       <a @click="toggleBtn">Criar uma conta</a>
     </div>
@@ -23,7 +34,7 @@
           placeholder="Sua senha..."
           v-model="users.password"
         />
-        <button>Acessar</button>
+        <button>Criar conta</button>
       </form>
       <a @click="toggleBtn">Já possui uma conta</a>
     </div>
@@ -42,6 +53,7 @@ export default {
         password: "",
       },
       login: true,
+      loading: false,
     };
   },
   methods: {
@@ -68,7 +80,7 @@ export default {
           // Enviar no localstore
           const usuarioLogado = {
             uid: user.uid,
-            nome: this.nome,
+            nome: this.users.nome,
           };
           await localStorage.setItem("devpost", JSON.stringify(usuarioLogado));
         })
@@ -78,6 +90,30 @@ export default {
 
       // Enviar para a tela do home
       this.$router.push("/");
+    },
+
+    async handleLogin() {
+      this.loading = true;
+
+      const { user } = await firebase
+        .auth()
+        .signInWithEmailAndPassword(this.users.email, this.users.password);
+
+      const userProfile = await firebase
+        .firestore()
+        .collection("users")
+        .doc(user.uid)
+        .get();
+
+      const usuarioLogado = {
+        uid: user.uid,
+        nome: userProfile.data().nome,
+      };
+
+      await localStorage.setItem("devpost", JSON.stringify(usuarioLogado));
+
+      this.$router.push("/");
+      this.loading = false;
     },
   },
 };
@@ -126,6 +162,10 @@ button {
   color: white;
   outline: none;
   cursor: pointer;
+}
+
+.isLoading {
+  cursor: wait;
 }
 
 .loginArea a {
