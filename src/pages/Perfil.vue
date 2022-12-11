@@ -16,7 +16,7 @@
       <div class="postarea">
         <article class="post" v-for="post in posts" :key="post.id">
           <h1>{{ post.autor }}</h1>
-          <p>{{ post.content }}</p>
+          <p>{{ post.content || postLength(post.content) }}</p>
 
           <div class="action-post">
             <button @click="togglePostModal(post)">Veja post completo</button>
@@ -82,6 +82,12 @@ export default {
     togglePostModal(post) {
       this.showPostModal = !this.showPostModal;
       this.showPostModal ? (this.fullPost = post) : (this.fullPost = {});
+    },
+  },
+  filters: {
+    postLength(valor) {
+      if (valor.length < 200) return valor;
+      return `${valor.substring(0, 200)}...`;
     },
   },
 };
