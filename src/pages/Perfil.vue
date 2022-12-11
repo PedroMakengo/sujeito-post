@@ -1,4 +1,5 @@
 <template>
+  <Header />
   <div id="perfil">
     <div class="postarea loading" v-if="loading">
       <img src="@/assets/loading.gif" />
@@ -34,6 +35,7 @@
 
 <script>
 import firebase from "@/services/firebaseConnection";
+import Header from "@/components/Header.vue";
 import Modal from "@/components/Modal.vue";
 
 export default {
@@ -48,7 +50,7 @@ export default {
       user: {},
     };
   },
-  components: { Modal },
+  components: { Modal, Header },
   props: ["userid"],
 
   async created() {

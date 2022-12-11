@@ -1,4 +1,5 @@
 <template>
+  <Header />
   <div id="dashboard">
     <h2>Minha conta</h2>
     <span>Atualize seu perfil</span>
@@ -13,8 +14,11 @@
 
 <script>
 import firebase from "@/services/firebaseConnection";
+
+import Header from "@/components/Header";
 export default {
   name: "DashboardPage",
+  components: { Header },
   data() {
     return {
       nome: "",

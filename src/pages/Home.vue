@@ -1,4 +1,5 @@
 <template>
+  <Header />
   <div id="home">
     <div class="newpost">
       <h2>Bem-vindo de volta!</h2>
@@ -43,11 +44,11 @@
 
 <script>
 import firebase from "@/services/firebaseConnection";
+import Header from "@/components/Header";
 import Modal from "@/components/Modal.vue";
-
 export default {
   name: "HomePage",
-  components: { Modal },
+  components: { Modal, Header },
   data() {
     return {
       mensagem: "",

@@ -2,10 +2,11 @@
   <header id="header">
     <div class="container">
       <router-link to="/" class="logo">SujeitoPost</router-link>
-      <div>
+      <nav>
         <router-link to="/dashboard" class="button">Dashboard</router-link>
+
         <button class="button logout" @click="logOut">Sair</button>
-      </div>
+      </nav>
     </div>
   </header>
 </template>
@@ -17,6 +18,7 @@ export default {
   methods: {
     async logOut() {
       const confirm = window.confirm("Você realmente deseja sair?");
+
       if (confirm) {
         await firebase
           .auth()
@@ -47,12 +49,26 @@ export default {
 
   position: fixed;
   top: 0;
+  left: 0;
 }
 
 #header .container {
   width: 70%;
+  height: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+#header nav {
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+}
+
+#header nav button {
+  cursor: pointer;
 }
 
 #header a {
