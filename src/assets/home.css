@@ -61,8 +61,13 @@
   margin-bottom: 15px;
 }
 
-.post h1 {
+.post .h1 {
   cursor: pointer;
+  color: #fff;
+  text-decoration: none;
+
+  font-size: 22px;
+  font-weight: bold;
 }
 
 .post div {

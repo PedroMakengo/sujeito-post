@@ -19,7 +19,9 @@
 
     <div class="postarea" v-else>
       <article class="post" v-for="(post, index) in posts" :key="index">
-        <h1>{{ post.autor }}</h1>
+        <router-link :to="`/perfil/${post.userId}`" class="h1">{{
+          post.autor
+        }}</router-link>
         <p>{{ post.content || postLength(post.content) }}</p>
 
         <div class="action-post">
