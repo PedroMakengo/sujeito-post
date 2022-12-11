@@ -29,7 +29,7 @@ export default {
 }
 
 #header .container {
-  width: 70%;
+  width: 69.5%;
   display: flex;
   justify-content: space-between;
 }
