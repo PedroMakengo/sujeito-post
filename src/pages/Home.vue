@@ -166,7 +166,9 @@ export default {
 #home {
   display: flex;
   flex-direction: row;
-  margin: 25px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 25px auto;
 }
 
 @import "@/assets/home.css";

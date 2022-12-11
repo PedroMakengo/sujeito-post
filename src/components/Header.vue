@@ -2,14 +2,35 @@
   <header id="header">
     <div class="container">
       <router-link to="/" class="logo">SujeitoPost</router-link>
-      <router-link to="/dashboard" class="button">Dashboard</router-link>
+      <div>
+        <router-link to="/dashboard" class="button">Dashboard</router-link>
+        <button class="button logout" @click="logOut">Sair</button>
+      </div>
     </div>
   </header>
 </template>
 
 <script>
+import firebase from "@/services/firebaseConnection";
 export default {
   name: "HeaderComponent",
+  methods: {
+    async logOut() {
+      const confirm = window.confirm("Você realmente deseja sair?");
+      if (confirm) {
+        await firebase
+          .auth()
+          .signOut()
+          .then(async () => {
+            await localStorage.removeItem("devpost");
+
+            this.$router.push("/login");
+          });
+      } else {
+        return;
+      }
+    },
+  },
 };
 </script>
 

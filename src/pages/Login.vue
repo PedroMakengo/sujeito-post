@@ -130,9 +130,10 @@ h1 {
   align-items: center;
   flex-direction: column;
   padding: 20px;
-  margin-top: 65px;
 
-  max-width: 600px;
+  margin: 65px auto;
+
+  max-width: 400px;
   background: #4c5059;
 }
 
