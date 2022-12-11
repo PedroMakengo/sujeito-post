@@ -26,12 +26,12 @@
   padding: 10px;
   font-size: 15px;
   background: #fafafa;
+  border-radius: 5px;
   border: 0;
   outline: none;
 }
 
 .newpost button {
-  height: 35px;
   border: 0;
   background-color: #7289da;
   color: #fff;
