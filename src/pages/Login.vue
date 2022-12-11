@@ -2,7 +2,7 @@
   <div id="login">
     <div v-if="login" class="loginArea">
       <h1>Entrar</h1>
-      <form action="">
+      <form @submit.prevent="handleLogin">
         <input type="text" placeholder="email@gmail.com" />
         <input type="password" placeholder="Sua senha..." id="" />
         <button>Acessar</button>
@@ -11,8 +11,8 @@
     </div>
     <div v-else class="loginArea">
       <h1>Cadastrar</h1>
-      <form action="">
-        <input type="text" placeholder="Nome" v-model="users.name" />
+      <form @submit.prevent="handleRegister">
+        <input type="text" placeholder="Nome" v-model="users.nome" />
         <input
           type="text"
           placeholder="email@gmail.com"
@@ -31,12 +31,13 @@
 </template>
 
 <script>
+import firebase from "@/services/firebaseConnection";
 export default {
   name: "LoginPage",
   data() {
     return {
       users: {
-        name: "",
+        nome: "",
         email: "",
         password: "",
       },
@@ -49,6 +50,34 @@ export default {
       this.users.name = "";
       this.users.email = "";
       this.users.password = "";
+    },
+
+    async handleRegister() {
+      const { user } = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.users.email, this.users.password);
+
+      await firebase
+        .firestore()
+        .collection("users")
+        .doc(user.uid)
+        .set({
+          nome: this.users.nome,
+        })
+        .then(async () => {
+          // Enviar no localstore
+          const usuarioLogado = {
+            uid: user.uid,
+            nome: this.nome,
+          };
+          await localStorage.setItem("devpost", JSON.stringify(usuarioLogado));
+        })
+        .catch(error => {
+          console.log(error);
+        });
+
+      // Enviar para a tela do home
+      this.$router.push("/");
     },
   },
 };
