@@ -1,7 +1,9 @@
 <template>
   <header id="header">
-    <router-link to="/" class="logo">SujeitoPost</router-link>
-    <router-link to="/dashboard" class="button">Dashboard</router-link>
+    <div class="container">
+      <router-link to="/" class="logo">SujeitoPost</router-link>
+      <router-link to="/dashboard" class="button">Dashboard</router-link>
+    </div>
   </header>
 </template>
 
@@ -16,11 +18,20 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  height: 60px;
+  height: 80px;
   width: 100%;
 
   background-color: #202225;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+  position: fixed;
+  top: 0;
+}
+
+#header .container {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
 }
 
 #header a {

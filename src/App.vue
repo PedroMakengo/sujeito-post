@@ -2,7 +2,9 @@
   <div id="app">
     <Header />
 
-    <router-view></router-view>
+    <main>
+      <router-view></router-view>
+    </main>
   </div>
 </template>
 
@@ -21,5 +23,9 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+main {
+  margin-top: 5rem;
 }
 </style>
