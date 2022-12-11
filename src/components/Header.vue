@@ -1,7 +1,7 @@
 <template>
   <header id="header">
     <div class="container">
-      <router-link to="/" class="logo">SujeitoPost</router-link>
+      <router-link to="/" class="logo">Dev Posts</router-link>
       <nav>
         <router-link to="/dashboard" class="button">Dashboard</router-link>
 
