@@ -3,22 +3,61 @@
     <h2>Minha conta</h2>
     <span>Atualize seu perfil</span>
 
-    <form @submit.prevent="atualizarPerfil">
+    <form @submit.prevent="updateProfile">
       <label for="">Nome:</label>
-      <input type="text" v-model="nome" />
+      <input type="text" v-model="nome" :placeholder="user.nome" />
       <button type="submit" class="button">Atualizar Perfil</button>
     </form>
   </div>
 </template>
 
 <script>
-// import firebase from "@/services/firebaseConnection";
+import firebase from "@/services/firebaseConnection";
 export default {
   name: "DashboardPage",
   data() {
     return {
       nome: "",
+      user: {},
     };
+  },
+
+  async created() {
+    const user = await localStorage.getItem("devpost");
+    this.user = JSON.parse(user);
+  },
+
+  methods: {
+    async updateProfile() {
+      if (this.nome === "") {
+        return;
+      }
+
+      await firebase.firestore().collection("users").doc(this.user.uid).update({
+        nome: this.nome,
+      });
+
+      // Atualizando todos os posts
+      const postDocs = await firebase
+        .firestore()
+        .collection("posts")
+        .where("userId", "==", this.user.uid)
+        .get();
+
+      // Percorrer todos os posts para mudar o nome
+      postDocs.forEach(async doc => {
+        await firebase.firestore().collection("posts").doc(doc.id).update({
+          autor: this.nome,
+        });
+      });
+
+      // Atualizar o nosso localStorage
+      localStorage.setItem(
+        "devpost",
+        JSON.stringify({ uid: this.user.uid, nome: this.nome })
+      );
+      alert("Perfil atualizado com sucesso!");
+    },
   },
 };
 </script>
