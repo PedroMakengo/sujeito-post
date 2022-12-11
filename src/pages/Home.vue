@@ -177,17 +177,5 @@ export default {
   margin: 25px;
 }
 
-.loading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-items: center;
-  height: 100%;
-}
-
-.loading img {
-  width: 10%;
-}
-
 @import "@/assets/home.css";
 </style>

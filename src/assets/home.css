@@ -117,3 +117,15 @@
 .headerPerfil span strong {
   color: #ffb800;
 }
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  height: 100%;
+}
+
+.loading img {
+  width: 10%;
+}

@@ -26,6 +26,7 @@ export default {
 }
 
 main {
+  width: 70%;
   margin-top: 5rem;
 }
 </style>
