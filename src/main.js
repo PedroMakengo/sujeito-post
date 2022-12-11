@@ -3,4 +3,11 @@ import App from "./App.vue";
 import router from "./router";
 import "@/assets/global.css";
 
-createApp(App).use(router).mount("#app");
+import firebase from "@/services/firebaseConnection";
+
+let app;
+firebase.auth().onAuthStateChanged(() => {
+  if (!app) {
+    app = createApp(App).use(router).mount("#app");
+  }
+});
