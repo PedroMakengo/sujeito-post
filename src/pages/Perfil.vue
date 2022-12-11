@@ -7,26 +7,34 @@
 
     <div v-else>
       <div class="headerPerfil">
-        <h2>Olá Mateus</h2>
-        <span>Já fez <strong>10</strong> posts</span>
+        <h2>Olá, {{ user.nome }}</h2>
+        <span
+          >Já fez <strong>{{ posts.length }}</strong> posts</span
+        >
       </div>
 
       <div class="postarea">
-        <article class="post" v-for="post in post" :key="post.id">
+        <article class="post" v-for="post in posts" :key="post.id">
           <h1>{{ post.autor }}</h1>
           <p>{{ post.content }}</p>
 
           <div class="action-post">
-            <button>Veja post completo</button>
+            <button @click="togglePostModal(post)">Veja post completo</button>
           </div>
         </article>
       </div>
     </div>
+    <Modal
+      v-if="showPostModal"
+      :post="fullPost"
+      @close="togglePostModal()"
+    ></Modal>
   </div>
 </template>
 
 <script>
 import firebase from "@/services/firebaseConnection";
+import Modal from "@/components/Modal.vue";
 
 export default {
   name: "PerfilPage",
@@ -40,7 +48,9 @@ export default {
       user: {},
     };
   },
+  components: { Modal },
   props: ["userid"],
+
   async created() {
     const user = await localStorage.getItem("devpost");
     this.user = JSON.parse(user);
@@ -64,9 +74,15 @@ export default {
           });
         });
         this.nome = this.posts[0].autor;
+        this.loading = false;
       });
+  },
 
-    this.loading = false;
+  methods: {
+    togglePostModal(post) {
+      this.showPostModal = !this.showPostModal;
+      this.showPostModal ? (this.fullPost = post) : (this.fullPost = {});
+    },
   },
 };
 </script>

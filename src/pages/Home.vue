@@ -149,21 +149,13 @@ export default {
     },
 
     togglePostModal(post) {
-      console.log(post);
       this.showPostModal = !this.showPostModal;
-
-      if (this.showPostModal) {
-        this.fullPost = post;
-      } else {
-        this.fullPost = {};
-      }
+      this.showPostModal ? (this.fullPost = post) : (this.fullPost = {});
     },
   },
   filters: {
     postLength(valor) {
-      if (valor.length < 200) {
-        return valor;
-      }
+      if (valor.length < 200) return valor;
       return `${valor.substring(0, 200)}...`;
     },
   },
