@@ -1,56 +1,43 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <header>
-    <nav id="header">
-      <h1>Sujeito Programador</h1>
-      <ul>
-        <li>
-          <router-link to="/" active-class="ativo" exact>Home</router-link>
-        </li>
-        <li>
-          <router-link to="/produto" active-class="ativo">Produto</router-link>
-        </li>
-      </ul>
-    </nav>
+  <header id="header">
+    <a href="">SujeitoPost</a>
+    <button>Dashboard</button>
   </header>
 </template>
 
 <script>
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: "Header",
+  name: "HeaderComponent",
 };
 </script>
 
-<style>
-header {
-  background: red;
-  height: 10vh;
-}
-
-header nav {
+<style scoped>
+#header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 70%;
-  height: 100%;
-  margin: 0 auto;
+  justify-content: space-around;
+  height: 60px;
+  width: 100%;
+
+  background-color: #202225;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-header nav ul {
-  display: flex;
-  gap: 2rem;
-
-  list-style: none;
-}
-
-header nav ul a {
-  font-size: 1rem;
+#header a {
   text-decoration: none;
-  color: white;
+  font-size: 30px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
 }
 
-header nav ul .ativo {
-  border-top: 1px solid white;
+button {
+  cursor: pointer;
+  border: 0;
+  color: #fff;
+  background: transparent;
+  padding: 5px 15px;
+
+  outline: none;
 }
 </style>

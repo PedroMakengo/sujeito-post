@@ -1,0 +1,11 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #36393f;
+  box-sizing: border-box;
+}
+
+body,
+button {
+  font-family: Poppins, sans-serif;
+}
