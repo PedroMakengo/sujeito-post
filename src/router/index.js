@@ -1,15 +1,30 @@
 import { createRouter, createWebHistory } from "vue-router";
 
+import Home from "@/pages/Home";
+import Dashboard from "@/pages/Dashboard";
+import Login from "@/pages/Login";
+import Perfil from "@/pages/Perfil";
+
 const routes = [
   {
     name: "Home",
     path: "/",
-    // component: Home,
+    component: Home,
   },
   {
-    name: "Produto",
-    path: "/produto",
-    // component: Produto,
+    name: "Dashboard",
+    path: "/dashboard",
+    component: Dashboard,
+  },
+  {
+    name: "Perfil",
+    path: "/perfil/:userid",
+    component: Perfil,
+  },
+  {
+    name: "Login",
+    path: "/login",
+    component: Login,
   },
   {
     path: "/:pathMatch(.*)*",

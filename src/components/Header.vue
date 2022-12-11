@@ -1,7 +1,7 @@
 <template>
   <header id="header">
-    <a href="">SujeitoPost</a>
-    <button>Dashboard</button>
+    <router-link to="/" class="logo">SujeitoPost</router-link>
+    <router-link to="/dashboard" class="button">Dashboard</router-link>
   </header>
 </template>
 
@@ -25,13 +25,16 @@ export default {
 
 #header a {
   text-decoration: none;
+}
+
+#header a.logo {
   font-size: 30px;
   color: #fff;
   cursor: pointer;
   font-weight: bold;
 }
 
-button {
+#header a.button {
   cursor: pointer;
   border: 0;
   color: #fff;
